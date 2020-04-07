@@ -1,2 +1,2 @@
 # Spring Rest API Bootstrap
-Spring Bootstrap to create Restful API
+This project has already written all the necessary boilerplate code necessary to create a Restful API with Spring Boot 2. 
