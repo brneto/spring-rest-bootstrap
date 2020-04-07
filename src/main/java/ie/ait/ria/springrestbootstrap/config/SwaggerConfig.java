@@ -22,10 +22,10 @@ public class SwaggerConfig {
   public Docket bookDocket() {
     return new Docket(DocumentationType.SWAGGER_2)
         .apiInfo(apiInfo())
-        .pathMapping("/api")
+        //.pathMapping("/bootstrap")
         .select()
         .apis(RequestHandlerSelectors.any())
-        .paths(PathSelectors.regex("/demos.*"))
+        .paths(PathSelectors.regex("/api/demos.*"))
         .build();
   }
 

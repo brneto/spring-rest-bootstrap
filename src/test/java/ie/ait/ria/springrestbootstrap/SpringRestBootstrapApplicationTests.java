@@ -52,12 +52,12 @@ class SpringRestBootstrapApplicationTests {
   @Autowired
   private BasicJsonTester json;
 
-  @Test
+  @Test @Order(1)
   void shouldContextLoads(@Autowired DemoRepository demoRepository) {
     then(demoRepository).isNotNull();
   }
 
-  @Test @Order(1)
+  @Test @Order(2)
   void shouldHaveNoDemoWithGetAll() {
     // given
     RequestEntity<Void> request = RequestEntity
@@ -66,14 +66,14 @@ class SpringRestBootstrapApplicationTests {
         .build();
 
     // when
-    ResponseEntity<Exception> response =
-        restTemplate.exchange(request, Exception.class);
+    ResponseEntity<Collection<Demo>> response =
+        restTemplate.exchange(request, new ParameterizedTypeReference<Collection<Demo>>() {});
     HttpStatus responseStatus = response.getStatusCode();
-    Exception responseContent = requireNonNull(response.getBody());
+    Collection<Demo> responseContent = requireNonNull(response.getBody());
 
     // then
-    then(responseStatus).isEqualTo(NOT_FOUND);
-    then(responseContent.getLocalizedMessage()).isEqualTo("No message available");
+    then(responseStatus).isEqualTo(OK);
+    then(responseContent).isEmpty();
   }
 
 }
