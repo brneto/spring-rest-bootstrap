@@ -13,17 +13,17 @@ public class DemoExceptionHandler {
 
   DemoExceptionHandler(Logger log) { this.log = log; }
 
-  private Exception logAndReturnException(Exception ex) {
+  private Exception logAndRespond(Exception ex) {
     log.error(ex.getLocalizedMessage(), ex);
     return ex;
   }
 
   @ExceptionHandler(IllegalArgumentException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
-  Exception handleIllegalArgument(IllegalArgumentException ex) { return logAndReturnException(ex); }
+  Exception handleIllegalArgument(IllegalArgumentException ex) { return logAndRespond(ex); }
 
   @ExceptionHandler(IllegalStateException.class)
   @ResponseStatus(HttpStatus.CONFLICT)
-  Exception handleIllegalArgument(IllegalStateException ex) { return logAndReturnException(ex); }
+  Exception handleIllegalArgument(IllegalStateException ex) { return logAndRespond(ex); }
 
 }
