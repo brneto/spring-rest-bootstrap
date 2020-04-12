@@ -21,7 +21,7 @@ public class Demo {
       position = 0)
   @Id
   @GeneratedValue(strategy = IDENTITY)
-  private long id;
+  private Long id;
 
   @ApiModelProperty(
       notes = "Title of the demo.",

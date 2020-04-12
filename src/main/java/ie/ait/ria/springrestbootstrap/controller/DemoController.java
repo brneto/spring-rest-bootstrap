@@ -7,13 +7,18 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import javax.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 @Api(tags = "Demo")
 @RestController
@@ -31,18 +36,21 @@ public class DemoController {
   @GetMapping("/demos")
   public List<Demo> getAllDemos() { return service.getDemoList(); }
 
+  @GetMapping("/demos/{id}")
+  public Demo getDemo(@PathVariable Long id) {
+    try {
+      return service.findDemo(id);
+    } catch (NoSuchElementException ex) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Provide correct Demo Id", ex);
+    }
+  }
+
   @ApiOperation(tags = "Demo", value = "Add a new demo")
   @ApiResponses(value = {
       @ApiResponse(code = 201, message = "Contact created"),
       @ApiResponse(code = 400, message = "Invalid input"),
       @ApiResponse(code = 409, message = "Contact already exists") })
   @PostMapping("/demos")
-  public Demo addDemo(@Valid Optional<Demo> bodyContent) {
-    Demo demo = bodyContent.orElseThrow(
-        () -> new IllegalArgumentException("POST cannot be called without providing a payload"));
-
-    service.addDemo(demo);
-    return demo;
-  }
+  public Demo addDemo(@Valid @RequestBody Demo demo) { return service.addDemo(demo); }
 
 }

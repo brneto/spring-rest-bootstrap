@@ -9,5 +9,9 @@ spring:
 
 logging.level.org.hibernate.type: trace
 
-server.port: 8080
+server:
+  port: 8080
+  error:
+    include-exception: on
+    include-stacktrace: never
 
