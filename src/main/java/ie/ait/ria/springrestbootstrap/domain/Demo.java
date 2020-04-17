@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
+import org.springframework.validation.annotation.Validated;
 
 @ApiModel(description = "Class representing a demo in the application.")
 @Entity
+@Validated
 public class Demo {
 
   @ApiModelProperty(
@@ -56,5 +58,10 @@ public class Demo {
   public Demo setDescription(String description) {
     this.description = description;
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("[id: %d, title: %s, description: %s]", id, title, description);
   }
 }

@@ -8,10 +8,8 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 @Api(tags = "Demo")
 @RestController
 @RequestMapping("/api")
-@Validated
 public class DemoController {
 
   private final DemoService service;
@@ -52,5 +49,15 @@ public class DemoController {
       @ApiResponse(code = 409, message = "Contact already exists") })
   @PostMapping("/demos")
   public Demo addDemo(@Valid @RequestBody Demo demo) { return service.addDemo(demo); }
+
+  @GetMapping("/demos/form")
+  public String getFormDemo(@Valid Demo demo) {
+    return demo.toString();
+  }
+
+  @PostMapping("/demos/form")
+  public String postFormDemo(@Valid Demo demo) {
+    return demo.toString();
+  }
 
 }
