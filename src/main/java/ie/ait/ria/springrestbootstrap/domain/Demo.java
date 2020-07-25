@@ -62,6 +62,7 @@ public class Demo {
 
   @Override
   public String toString() {
-    return String.format("[id: %d, title: %s, description: %s]", id, title, description);
+    var template = "[id: %d, title: %s, description: %s]";
+    return String.format(template, id, title, description);
   }
 }
