@@ -23,8 +23,8 @@ public class GlobalExceptionHandler {
   CustomErrorMessage handleIllegalArgument(IllegalStateException ex) { return logAndRespond(ex); }
 
   private static class CustomErrorMessage {
-    private String customMessage;
-    private String exception;
+    private final String customMessage;
+    private final String exception;
 
     CustomErrorMessage(String customMessage, String exception) {
       this.customMessage = customMessage;
