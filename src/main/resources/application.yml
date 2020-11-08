@@ -1,3 +1,5 @@
+debug: off
+
 server:
   port: 8080
   error:
@@ -6,11 +8,18 @@ server:
 
 spring:
   h2.console.enabled: on
-  datasource.platform: h2
+  datasource:
+    platform: h2
+    initialization-mode: always
   jpa:
     show-sql: on
+    generate-ddl: on
+    hibernate:
+      ddl-auto: create
     properties.hibernate:
       format_sql: true
       use_sql_comments: true
 
-logging.level.org.hibernate.type: trace
+logging:
+  level:
+    org.hibernate.type: trace
