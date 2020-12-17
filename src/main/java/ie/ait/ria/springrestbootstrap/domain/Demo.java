@@ -1,43 +1,39 @@
 package ie.ait.ria.springrestbootstrap.domain;
 
-import static javax.persistence.GenerationType.IDENTITY;
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.validation.annotation.Validated;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.validation.constraints.NotBlank;
-import org.springframework.validation.annotation.Validated;
 
-@ApiModel(description = "Class representing a demo in the application.")
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Schema(description = "Class representing a demo in the application.")
 @Entity
 @Validated
 public class Demo {
 
-  @ApiModelProperty(
-      notes = "Unique identifier of the demo.",
+  @Schema(
+      description = "Unique identifier of the demo.",
       example = "1",
-      required = true,
-      position = 0)
+      required = true)
   @Id
   @GeneratedValue(strategy = IDENTITY)
   private Long id;
 
-  @ApiModelProperty(
-      notes = "Title of the demo.",
+  @Schema(
+      description = "Title of the demo.",
       example = "Jessica Abigail",
-      required = true,
-      position = 1)
+      required = true)
   @NotBlank
   private String title;
 
-  @ApiModelProperty(
-      notes = "Description of the demo.",
-      example = "bla bla bla",
-      required = false,
-      position = 2)
+  @Schema(
+      description = "Description of the demo.",
+      example = "bla bla bla")
   @Lob
   private String description;
 
